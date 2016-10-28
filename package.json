@@ -1,0 +1,29 @@
+{
+  "name": "thumos",
+  "version": "0.0.1",
+  "description": "emits face movement and emotion events",
+  "main": "thumos.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarahkemi/thumos.git"
+  },
+  "keywords": [
+    "thumos",
+    "face",
+    "clmtracker",
+    "emotion"
+  ],
+  "author": "Sarah Aladetan <sarahaladetan@gmail.com> (http://sarahaladetan.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sarahkemi/thumos/issues"
+  },
+  "homepage": "https://github.com/sarahkemi/thumos#readme",
+  "dependencies": {
+    "clmtrackr": "^1.0.1",
+    "microevent": "^1.0.0"
+  }
+}
