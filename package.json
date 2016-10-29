@@ -4,7 +4,7 @@
   "description": "emits face movement and emotion events",
   "main": "thumos.js",
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "npm test"
   },
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   "keywords": [
     "thumos",
     "face",
-    "clmtracker",
+    "clmtrackr",
     "emotion"
   ],
   "author": "Sarah Aladetan <sarahaladetan@gmail.com> (http://sarahaladetan.com)",

@@ -1,6 +1,6 @@
 const microevent = require('microevent')
-const clm = require('clmtrackr')
-const pModel = require('clmtracker/models/model_pca_20_svm')
+const clm = require('./node_modules/clmtrackr/clmtrackr')
+const pModel = require('clmtrackr/models/model_pca_20_svm')
 
 var Thumos = function (videoId, overlayId) {
   var self = this
