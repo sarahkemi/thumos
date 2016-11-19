@@ -1,6 +1,7 @@
 const microevent = require('microevent')
-const clm = require('./node_modules/clmtrackr/clmtrackr')
-const pModel = require('clmtrackr/models/model_pca_20_svm')
+const clm = require('clmtrackr')
+const pModel = require('./model_pca_20_svm.json')
+var raf = require('raf')
 
 var Thumos = function (videoId, overlayId) {
   var self = this
@@ -14,42 +15,42 @@ var Thumos = function (videoId, overlayId) {
 
   // start tracking
   ctrack.start(video)
-  // start loop to draw face
-  drawLoop()
-  // print position data to console
-  positionLoop()
+  // start loop to draw face and obtain position data
+  update()
+  emit()
 
-  setInterval(function emitDeltaPosition () {
-    var deltaPositions = []
-    var startPositions = positions
-    var endPositions
-    var startTime
-    var endTime
-    startTime = new Date()
-    setTimeout(function deltas () {
-      endPositions = positions
-      endTime = new Date()
-      for (var i = 0; i < startPositions.length; i++) {
-        // deltaPositions.push([endPositions[i][0] - startPositions[i][0], endPositions[i][1] - startPositions[i][1]])
-        // find euclidean differences between start and end points and average that
-        deltaPositions.push(Math.sqrt(Math.pow(endPositions[i][0] - startPositions[i][0], 2) + Math.pow(endPositions[i][1] - startPositions[i][1], 2)))
-      }
-      var faceDelta = deltaPositions.reduce(function (a, b) { return a + b }) / deltaPositions.length
-      self.trigger('faceMoving', {'start': startTime, 'end': endTime, 'now': new Date(), 'delta': faceDelta})
+  function emit () {
+    setInterval(function () {
+      var deltaPositions = []
+      var startPositions = positions
+      var endPositions
+      var startTime
+      var endTime
+      startTime = new Date()
+      setTimeout(function deltas () {
+        endPositions = positions
+        if (endPositions && endPositions.length) {
+          endTime = new Date()
+          for (var i = 0; i < startPositions.length; i++) {
+            // find euclidean differences between start and end points and average that
+            deltaPositions.push(Math.sqrt(Math.pow(endPositions[i][0] - startPositions[i][0], 2) + Math.pow(endPositions[i][1] - startPositions[i][1], 2)))
+          }
+          if (deltaPositions && deltaPositions.length) {
+            var faceDelta = deltaPositions.reduce(function (a, b) { return a + b }) / deltaPositions.length
+            self.trigger('faceMoving', {'start': startTime, 'end': endTime, 'now': new Date(), 'delta': faceDelta, 'array': deltaPositions})
+          }
+        }
+      }, 5000)
     }, 5000)
-  }, 10000)
-
-  function drawLoop () {
-    clm.requestAnimFrame(drawLoop)
-    overlayCC.clearRect(0, 0, 400, 300)
-    if (ctrack.getCurrentPosition()) {
-      ctrack.draw(overlay)
-    }
   }
 
-  function positionLoop () {
-    clm.requestAnimFrame(positionLoop)
+  function update () {
+    raf(update)
+    overlayCC.clearRect(0, 0, video.videoWidth, video.videoHeight)
     positions = ctrack.getCurrentPosition()
+    if (positions) {
+      ctrack.draw(overlay)
+    }
   }
 }
 
