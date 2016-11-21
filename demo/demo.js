@@ -13,7 +13,7 @@ getUserMedia(function (err, stream) {
     console.log('got a stream!')
     attachmediastream(stream, document.querySelector('#vid video'))
     document.querySelector('#vid video').muted = true
-    var faceEvents = new Thumos('box0', 'overlay')
+    var faceEvents = new Thumos('box0', 'overlay', true)
     faceEvents.bind('faceMoving', function (data) {
       console.log('face movement event is being emitted!!!')
       $('#data').html('<b>data:</b> <br> <br>start: ' + data.start.toISOString() + '<br>end: ' + data.end.toISOString() + '<br>delta_average: ' + data.delta)

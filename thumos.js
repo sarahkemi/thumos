@@ -3,7 +3,7 @@ const clm = require('clmtrackr')
 const pModel = require('./model_pca_20_svm.json')
 var raf = require('raf')
 
-var Thumos = function (videoId, overlayId) {
+var Thumos = function (videoId, overlayId, drawModel) {
   var self = this
   var video = document.getElementById(videoId)
   var overlay = document.getElementById(overlayId)
@@ -48,7 +48,7 @@ var Thumos = function (videoId, overlayId) {
     raf(update)
     overlayCC.clearRect(0, 0, video.videoWidth, video.videoHeight)
     positions = ctrack.getCurrentPosition()
-    if (positions) {
+    if (positions && drawModel) {
       ctrack.draw(overlay)
     }
   }

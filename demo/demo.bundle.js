@@ -196,9 +196,9 @@ getUserMedia(function (err, stream) {
     console.log('got a stream!')
     attachmediastream(stream, document.querySelector('#vid video'))
     document.querySelector('#vid video').muted = true
-    var faceEvents = new Thumos('box0', 'overlay')
+    var faceEvents = new Thumos('box0', 'overlay', false)
     faceEvents.bind('faceMoving', function (data) {
-      console.log('face movement event is being emitted!!')
+      console.log('face movement event is being emitted!!!')
       $('#data').html('<b>data:</b> <br> <br>start: ' + data.start.toISOString() + '<br>end: ' + data.end.toISOString() + '<br>delta_average: ' + data.delta)
     })
   }
@@ -30361,7 +30361,7 @@ const clm = require('clmtrackr')
 const pModel = require('./model_pca_20_svm.json')
 var raf = require('raf')
 
-var Thumos = function (videoId, overlayId) {
+var Thumos = function (videoId, overlayId, drawModel) {
   var self = this
   var video = document.getElementById(videoId)
   var overlay = document.getElementById(overlayId)
@@ -30406,7 +30406,7 @@ var Thumos = function (videoId, overlayId) {
     raf(update)
     overlayCC.clearRect(0, 0, video.videoWidth, video.videoHeight)
     positions = ctrack.getCurrentPosition()
-    if (positions) {
+    if (positions && drawModel) {
       ctrack.draw(overlay)
     }
   }
