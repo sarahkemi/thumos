@@ -19,11 +19,11 @@ Thumos initiates with three different variables:
 
 It also emits data containing:
 
--`data.start`: start time of change in face movement
--`data.end`: end time of change in face movement
--`data.now`: time event trigged
--`data.delta`: integer representing average of all the euclidean differences from the start to end of the movement interval
--`data.array`: array of position differences for every coordinate during the movement interval
+- `data.start`: start time of change in face movement
+- `data.end`: end time of change in face movement
+- `data.now`: time event trigged
+- `data.delta`: integer representing average of all the euclidean differences from the start to end of the movement interval
+- `data.array`: array of position differences for every coordinate during the movement interval
 
 ```javascript
 const Thumos = require('thumos')
