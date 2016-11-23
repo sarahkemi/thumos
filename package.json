@@ -1,6 +1,6 @@
 {
   "name": "thumos",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "emits face movement and emotion events",
   "main": "thumos.js",
   "scripts": {
